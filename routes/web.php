@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\ClassSubjectController;
+use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,13 @@ Route::get('dashboard', [DashboardController::class, 'index']);
     Route::post('admin/class_subject/add', [ClassSubjectController::class, 'add']);
     Route::get('admin/class_subject/delete/{id}', [ClassSubjectController::class, 'delete']);
     Route::get('admin/class_subject/edit/{id}', [ClassSubjectController::class, 'edit']);
+
+    ## Parent
+    Route::get('admin/parent/list', [ParentController::class, 'list']);
+    Route::get('admin/parent/list_view', [ParentController::class, 'listView']);
+    Route::post('admin/parent/add', [ParentController::class, 'add']);
+    Route::get('admin/parent/delete/{id}', [ParentController::class, 'delete']);
+    Route::get('admin/parent/edit/{id}', [ParentController::class, 'edit']);
 
 
 // });

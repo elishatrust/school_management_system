@@ -393,27 +393,32 @@
                 </li>
                 <li class=" @if (Request::segment(2) == 'student' ) active @endif  open">
                     <a href="{{ url('admin/student/list') }}">
-                        <i class="zmdi zmdi-swap-alt"></i><span>Student</span>
+                        <i class="zmdi zmdi-accounts-alt"></i><span>Student</span>
                     </a>
                 </li>
                 <li class=" @if (Request::segment(2) == 'class' ) active @endif  open">
                     <a href="{{ url('admin/class/list') }}">
-                        <i class="zmdi zmdi-chart"></i><span>Class</span>
+                        <i class="zmdi zmdi-layers"></i><span>Class</span>
                     </a>
                 </li>
                 <li class=" @if (Request::segment(2) == 'subject' ) active @endif  open">
                     <a href="{{ url('admin/subject/list') }}">
-                        <i class="zmdi zmdi-grid"></i><span>Subject</span>
+                        <i class="zmdi zmdi-library"></i><span>Subject</span>
                     </a>
                 </li>
                 <li class=" @if (Request::segment(2) == 'class_subject' ) active @endif  open">
                     <a href="{{ url('admin/class_subject/list') }}">
-                        <i class="zmdi zmdi-swap"></i><span>Assign Subject</span>
+                        <i class="zmdi zmdi-swap-alt"></i><span>Assign Subject</span>
                     </a>
                 </li>
                 <li class=" @if (Request::segment(2) == 'teacher' ) active @endif  open">
                     <a href="{{ url('admin/teacher/list') }}">
-                        <i class="zmdi zmdi-assignment"></i><span>Teacher</span>
+                        <i class="zmdi zmdi-accounts-alt"></i><span>Teacher</span>
+                    </a>
+                </li>
+                <li class=" @if (Request::segment(2) == 'parent' ) active @endif  open">
+                    <a href="{{ url('admin/parent/list') }}">
+                        <i class="zmdi zmdi-accounts-alt"></i><span>Parent</span>
                     </a>
                 </li>
             </ul>

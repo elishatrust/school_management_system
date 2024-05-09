@@ -6,8 +6,7 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Created By</th>
-                <th>Created On</th>
+                <th>Created By/On</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -17,8 +16,7 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Created By</th>
-                <th>Created On</th>
+                <th>Created By/On</th>
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -36,8 +34,10 @@
                 <span class="badge badge-default m-l-10 hidden-sm-down">Inactive</span></td>
                 <?php } ?>
                 </td>
-                <td><?= $user->fname.' '.$user->lname ?></td>
-                <td><?= \Carbon\Carbon::parse($item->created_at)->format('d/m/Y | h:i A')?></td>
+                <td>
+                    <span><?= $user->fname.' '.$user->lname ?></span>
+                    <p class="mt-2"><?= \Carbon\Carbon::parse($item->created_at)->format('d/m/Y | h:i A')?></p>
+                </td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
 

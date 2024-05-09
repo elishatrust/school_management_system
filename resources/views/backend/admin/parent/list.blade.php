@@ -103,16 +103,10 @@
                                 <input type="file" id="image" name="image" class="form-control" placeholder="image">
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="admission_date">Admission Date <span class="text-danger">*</span></label>
+                        <div class="col-md-12 col-sm-12">
+                            <label for="admission_date">Address <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <input type="date" class="form-control" name="admission_date" value="" placeholder="2023-04-23" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="admission_date">Admission No. <span class="text-danger">*</span></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="admission_no" value="" placeholder="2023-04-00001" required>
+                                <input type="text" class="form-control" name="address" placeholder="Tabata, Mwanza Tanzania" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
@@ -121,25 +115,6 @@
                                 <option value="" disable="disabled">Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="form-label">Class <span class="text-danger">*</span></label>
-                            <select name="class_id" id="class_id" class="form-control show-tick" required>
-                                <option value="" disable="disabled">Select</option>
-                                <?php foreach ($class as $item) { ?>
-                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="religion">Religion <span class="text-danger">*</span></label>
-                            <select name="religion" id="religion" required  class="form-control show-tick">
-                                <option value="" disable="disabled">Select</option>
-                                <option value="Christian">Christian</option>
-                                <option value="Muslim">Muslim</option>
-                                <option value="Budhah">Budhah</option>
-                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-12">
@@ -171,7 +146,7 @@ $(document).ready(function () {
 function getView() {
     jQuery.ajax({
         type: "GET",
-        url: "{{ url('admin/student/list_view')}}",
+        url: "{{ url('admin/parent/list_view')}}",
         dataType: 'html',
         cache: false,
         success: function (data) {
@@ -190,7 +165,7 @@ function clear_input() {
     getView()
 }
 
-function deleteStudent(id){
+function deleteParent(id){
     var conf = confirm("Are you sure you want to delete this record ?");
     if (!conf) {
             return;
@@ -198,7 +173,7 @@ function deleteStudent(id){
 
     jQuery.ajax({
             type: "GET",
-            url: "/admin/student/delete/"+id,
+            url: "/admin/parent/delete/"+id,
             dataType: 'json',
             success: function (data) {
                 if (data.status == 200) {
@@ -211,7 +186,7 @@ function deleteStudent(id){
     });
 }
 
-function editStudent(id){
+function editParent(id){
     document.getElementById('form').reset();
     $("#hidden_id").val("")
 
@@ -220,7 +195,7 @@ function editStudent(id){
 
     jQuery.ajax({
             type: "GET",
-            url: "/admin/student/edit/"+id,
+            url: "/admin/parent/edit/"+id,
             dataType: 'json',
             success: function (data) {
                 $("#hidden_id").val(data.id)
@@ -251,7 +226,7 @@ function save(e) {
 
     jQuery.ajax({
         type: "POST",
-        url: "{{ url('admin/student/add')}}",
+        url: "{{ url('admin/parent/add')}}",
         data: formData,
         dataType: 'json',
         processData: false,
