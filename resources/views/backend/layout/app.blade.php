@@ -5,21 +5,34 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
-<title>:: Alpino :: Home</title>
+<meta name="description" content="">
+<title>{{ !empty(strtoupper($data['header']).' - '.strtoupper($data['title'])) ? strtoupper($data['header']).' - '.strtoupper($data['title']) : ''}}</title>
+
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/morrisjs/morris.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css') }}"/>
+<link rel="stylesheet" href="{{ asset('assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 <!-- Custom Css -->
+
+
+
 <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/flash.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/color_skins.css') }}">
+
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css"> --}}
+
+
+<script src="{{ asset('assets/plugins/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/jquery.min.js')}}"></script>
 </head>
 <body class="theme-black">
 
 
 <!-- Loader -->
-@include('backend.layout.loader')
+{{-- @include('backend.layout.loader') --}}
 
 
 <div class="overlay_menu">
@@ -119,6 +132,7 @@
 <script src="{{ asset('assets/bundles/doughnut.bundle.js') }}"></script>
 <script src="{{ asset('assets/bundles/mainscripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/pages/index.js') }}"></script>
+
 </body>
 
 

@@ -11,8 +11,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $title['title'] = 'Dashboard';
-        return view('backend.dashboard', compact('title'));
+        $data = [
+            'title' => 'School Management System',
+            'header' => 'Dashboard'
+        ];
+        return view('backend.dashboard', compact('data'));
 
         // if(Auth::user()->is_admin == 1){
         //     return view('admin.dashboard',$title, $data);

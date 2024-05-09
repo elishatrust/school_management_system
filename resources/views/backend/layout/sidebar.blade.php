@@ -2,7 +2,7 @@
     <ul class="menu_list">
         <li>
             <a href="javascript:" class="bars"></a>
-            <a class="navbar-brand" href="index.html"><img src="assets/images/logo.svg" alt="Alpino"></a>
+            <a class="navbar-brand" href="{{ url('dashboard') }}"><img src="{{ asset('assets/images/logo.svg') }}" alt="Alpino"></a>
         </li>
         <li><a href="javascript:" class="btn_overlay hidden-sm-down"><i class="zmdi zmdi-search"></i></a></li>
         <li><a href="javascript:" class="menu-sm"><i class="zmdi zmdi-swap"></i></a></li>
@@ -31,8 +31,8 @@
         <li><a href="chat.html"><i class="zmdi zmdi-comments"></i></a></li>
         <li><a href="javascript:" class="fullscreen" data-provide="fullscreen"><i class="zmdi zmdi-fullscreen"></i></a></li>
         <li class="power">
-            <a href="javascript:" class="js-right-sidebar"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a>
-            <a href="sign-in.html" class="mega-menu"><i class="zmdi zmdi-power"></i></a>
+            <a href="javascript:" title="Settings" class="js-right-sidebar"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a>
+            <a href="{{ url('logout') }}" title="Logout" class="mega-menu"><i class="zmdi zmdi-power"></i></a>
         </li>
     </ul>
 </aside>
@@ -67,7 +67,7 @@
                         <li>
                             <a href="javascript:">
                                 <div class="media">
-                                    <img class="media-object rounded-circle" src="assets/images/xs/avatar1.jpg" alt="">
+                                    <img class="media-object rounded-circle" src="{{ asset('assets/avatar.jpg') }}" alt="">
                                     <div class="media-body">
                                         <span class="name">Alexander <small class="time">35min ago</small></span>
                                         <p class="message">New tasks needs to be done</p>
@@ -78,7 +78,7 @@
                         <li>
                             <a href="javascript:">
                                 <div class="media">
-                                    <img class="media-object rounded-circle" src="assets/images/xs/avatar2.jpg" alt="">
+                                    <img class="media-object rounded-circle" src="{{ asset('assets/avatar.jpg') }}" alt="">
                                     <div class="media-body">
                                         <span class="name">Grayson <small class="time">1hr ago</small></span>
                                         <p class="message">New tasks needs to be done</p>
@@ -89,7 +89,7 @@
                         <li>
                             <a href="javascript:">
                                 <div class="media">
-                                    <img class="media-object rounded-circle" src="assets/images/xs/avatar3.jpg" alt="">
+                                    <img class="media-object rounded-circle" src="{{ asset('assets/avatar.jpg') }}" alt="">
                                     <div class="media-body">
                                         <span class="name">Sophia <small class="time">31min ago</small></span>
                                         <p class="message">New tasks needs to be done</p>
@@ -155,9 +155,9 @@
                         </div>
                         <ul class="list-unstyled team-info">
                             <li class="m-r-15"><small class="text-muted">Team</small></li>
-                            <li><img src="assets/images/xs/avatar2.jpg" alt="Avatar"></li>
-                            <li><img src="assets/images/xs/avatar3.jpg" alt="Avatar"></li>
-                            <li><img src="assets/images/xs/avatar4.jpg" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
                         </ul>
                     </a>
                 </div>
@@ -169,8 +169,8 @@
                         </div>
                         <ul class="list-unstyled team-info">
                             <li class="m-r-15"><small class="text-muted">Team</small></li>
-                            <li><img src="assets/images/xs/avatar6.jpg" alt="Avatar"></li>
-                            <li><img src="assets/images/xs/avatar7.jpg" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
                         </ul>
                     </a>
                 </div>
@@ -182,8 +182,8 @@
                         </div>
                         <ul class="list-unstyled team-info">
                             <li class="m-r-15"><small class="text-muted">Team</small></li>
-                            <li><img src="assets/images/xs/avatar8.jpg" alt="Avatar"></li>
-                            <li><img src="assets/images/xs/avatar9.jpg" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
+                            <li><img src="{{ asset('assets/avatar.jpg') }}" alt="Avatar"></li>
                         </ul>
                     </a>
                 </div>
@@ -366,45 +366,55 @@
                 <li>
                     <div class="user-info m-b-20">
                         <div class="image">
-                            <a href="profile.html"><img src="{{ asset('assets/images/profile_av.jpg') }}" alt="User"></a>
+                            <a href="{{ url('user/profile')}}"><img src="{{ asset('assets/avatar.jpg') }}" alt="User"></a>
                         </div>
                         <div class="detail">
-                            <h6>Michael</h6>
-                            <p class="m-b-0">info@example.com</p>
-                            <a href="javascript:" title="" class=" waves-effect waves-block">System Admin</a>
+                            <h6>{{ Str::ucfirst(Auth::user()->lname).', '.Str::ucfirst(Auth::user()->fname) }}</h6>
+                            <p class="m-b-0">{{ Auth::user()->email }}</p>
+                            <a href="javascript:" title="" class=" waves-effect waves-block">
+                                @if (Auth::user()->role==1) System Admin
+                                @elseif(Auth::user()->role==2)Teacher
+                                @elseif(Auth::user()->role==3)Student
+                                @elseif(Auth::user()->role==4)Parent
+                                @endif
+                            </a>
                         </div>
                     </div>
                 </li>
-                <li class="active open"> <a href="{{ url('/admin') }}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>Admin</span> <span class="badge badge-success float-right">7</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('admin/admin/list') }}">Admin List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(1) == 'dashboard' ) active @endif  open">
+                    <a href="{{ url('/dashboard') }}">
+                        <i class="zmdi zmdi-home"></i><span>Dashboard</span>
+                    </a>
                 </li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>Student</span> <span class="badge badge-default float-right">15</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('/') }}">Student List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(2) == 'admin' ) active @endif  open">
+                    <a href="{{ url('admin/admin/list') }}">
+                        <i class="zmdi zmdi-apps"></i><span>Admin</span>
+                    </a>
                 </li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Teacher</span> <span class="badge badge-warning float-right">9</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('/') }}">Teacher List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(2) == 'student' ) active @endif  open">
+                    <a href="{{ url('admin/student/list') }}">
+                        <i class="zmdi zmdi-swap-alt"></i><span>Student</span>
+                    </a>
                 </li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-chart"></i><span>Class</span> <span class="badge badge-default float-right">6</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('/') }}">Class List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(2) == 'class' ) active @endif  open">
+                    <a href="{{ url('admin/class/list') }}">
+                        <i class="zmdi zmdi-chart"></i><span>Class</span>
+                    </a>
                 </li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-delicious"></i><span>Subjects</span> <span class="badge badge-default float-right">3</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('/') }}">Subjects List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(2) == 'subject' ) active @endif  open">
+                    <a href="{{ url('admin/subject/list') }}">
+                        <i class="zmdi zmdi-grid"></i><span>Subject</span>
+                    </a>
                 </li>
-                <li><a href="javascript:" class="menu-toggle"><i class="zmdi zmdi-grid"></i><span>Parent</span> <span class="badge badge-info float-right">6</span></a>
-                    <ul class="ml-menu">
-                        <li><a href="{{ url('/') }}">Parent List</a></li>
-                    </ul>
+                <li class=" @if (Request::segment(2) == 'class_subject' ) active @endif  open">
+                    <a href="{{ url('admin/class_subject/list') }}">
+                        <i class="zmdi zmdi-swap"></i><span>Assign Subject</span>
+                    </a>
+                </li>
+                <li class=" @if (Request::segment(2) == 'teacher' ) active @endif  open">
+                    <a href="{{ url('admin/teacher/list') }}">
+                        <i class="zmdi zmdi-assignment"></i><span>Teacher</span>
+                    </a>
                 </li>
             </ul>
         </div>

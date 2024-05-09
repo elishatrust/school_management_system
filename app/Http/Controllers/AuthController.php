@@ -22,9 +22,9 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             $user = Auth::user();
 
-            // if ($user->role == 1) {
+            if ($user->role == 1) {
                 return redirect('/dashboard');
-            // }
+            }
             // else if ($user->role == 2) {
             //     return redirect('/dashboard');
             // }
@@ -37,11 +37,26 @@ class AuthController extends Controller
             // } else if ($user->role == 6) {
             //     return redirect('/dashboard');
             // }
-            // else {
-            //     return redirect('/login');
-            // }
+            else {
+                return redirect('/');
+            }
         }
 
         return back()->withErrors(['error' => 'Incorrect username or password']);
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
+    public function profile()
+    {
+        $data = [
+            'title' => 'School Management System',
+            'header' => 'My Profile'
+        ];
+        return view('backend.admin.user_profile', compact('data'));
+    }
+
 }

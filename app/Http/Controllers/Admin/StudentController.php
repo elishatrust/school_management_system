@@ -3,32 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdminModel;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
+use App\Models\StudentModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
-class AdminController extends Controller
+class StudentController extends Controller
 {
     public function list()
     {
         $data = [
             'title' => 'School Management System',
-            'header' => 'Admin List'
+            'header' => 'Student List'
         ];
 
-        return view('backend.admin.admin.list', compact('data'));
+        $class = ClassModel::getClassList();
+
+        return view('backend.admin.student.list', compact('data','class'));
     }
 
     public function listView()
     {
-        $data = AdminModel::getAdminList();
-        return view('backend.admin.admin.list_view', compact('data'));
+        $data = StudentModel::getStudentList();
+        return view('backend.admin.student.list_view', compact('data'));
     }
 
-    public function addAdmin(Request $request){
+
+    public function add(Request $request){
 
         try {
             DB::beginTransaction();
@@ -40,41 +45,55 @@ class AdminController extends Controller
             $gender = $request->input('gender');
             $phone = $request->input('phone');
             $email = $request->input('email');
-            $password = $request->input('password');
+            $admission_no = $request->input('admission_no');
+            $admission_date = $request->input('admission_date');
+            $class_id = $request->input('class_id');
+            $religion = $request->input('religion');
+            $dob = $request->input('dob');
             $status = $request->input('status1');
             $user_id = Auth::user()->id;
-            $role = 1;
+            $role = 3;
 
             if(empty($hidden_id)):
-                $adminData = [
+                $studentData = [
                     'fname' => $fname,
                     'mname' => $mname,
                     'lname' => $lname,
                     'gender' => $gender,
                     'phone' => $phone,
                     'email' => $email,
+                    'dob' => $dob,
+                    'admission_no' => $admission_no,
+                    'admission_date' => $admission_date,
+                    'class_id' => $class_id,
+                    'religion' => $religion,
                     'status' => $status,
                     'role' => $role,
-                    'password' => Hash::make($password),
+                    'password' => Hash::make($phone),
                     'created_by' => $user_id,
                     'updated_by' => $user_id,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
 
-                // Save admin data
-                DB::table('users')->insert($adminData);
-                $message='Admin saved successfully';
+                // Save student data
+                DB::table('students')->insert($studentData);
+                $message='Student saved successfully';
 
             else:
 
-                $adminData = [
+                $studentData = [
                     'fname' => $fname,
                     'mname' => $mname,
                     'lname' => $lname,
                     'gender' => $gender,
                     'phone' => $phone,
                     'email' => $email,
+                    'dob' => $dob,
+                    'admission_no' => $admission_no,
+                    'admission_date' => $admission_date,
+                    'class_id' => $class_id,
+                    'religion' => $religion,
                     'status' => $status,
                     'updated_by' => $user_id,
                 ];
@@ -84,9 +103,9 @@ class AdminController extends Controller
                     'archive'=>0
                 ];
 
-                ## Save admin data
-                DB::table('users')->where($condition)->update($adminData);
-                $message='Admin updated successfully';
+                ## Save student data
+                DB::table('students')->where($condition)->update($studentData);
+                $message='Student updated successfully';
 
             endif;
 
@@ -100,19 +119,19 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteAdmin($id)
+    public function delete($id)
     {
         try{
-            $data = AdminModel::deleteAdmin($id);
-            return response()->json(['status' => 200, 'message' =>"Admin deleted successfull"]);
+            $data = StudentModel::deleteStudent($id);
+            return response()->json(['status' => 200, 'message' =>"Student deleted successfull"]);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
 
-    public function editAdmin($id)
+    public function edit($id)
     {
-        $data= AdminModel::findAdmin($id);
+        $data= StudentModel::findStudent($id);
         echo json_encode(['data'=>$data,'id'=>Crypt::encrypt($id)]);
     }
 

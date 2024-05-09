@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-
-class AdminMiddleware
+class ParentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,17 +17,17 @@ class AdminMiddleware
     {
         if(!empty(Auth::check()))
         {
-            if(Auth::user()->role == 1){
+            if(Auth::user()->is_admin == 4){
                 return $next($request);
             }else{
                 Auth::logout();
-                return redirect(url('/'));
+                return redirect(url('/login'));
             }
         }
         else
         {
             Auth::logout();
-            return redirect(url('/'));
+            return redirect(url('/login'));
         }
     }
 }
